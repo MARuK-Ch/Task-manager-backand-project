@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import {TaskService} from "../service/task.service";
+import {TaskService} from "../service/task.service.js";
 import {Task} from "../models/task.model";
 
 interface TaskControllerInterface {

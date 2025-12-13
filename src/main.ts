@@ -1,5 +1,5 @@
-import { connectDB } from "./db/db";
-import { createExpressApp } from "./app";
+import { connectDB } from "./db/db.js";
+import { createExpressApp } from "./app.js";
 
 async function main() {
     try {

@@ -4,7 +4,9 @@
   "description": "",
   "type": "module",
   "scripts": {
-    "dev": "tsx watch src/main.ts"
+    "dev": "tsx watch src/main.ts",
+    "start": "node dist/main.js",
+    "build": "tsc -p tsconfig.json"
   },
   "keywords": [],
   "author": "",

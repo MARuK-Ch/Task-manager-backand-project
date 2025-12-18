@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
-import {TaskService} from "../service/task.service.js";
-import {Task} from "../models/task.model";
+import {TaskService} from "./task.service";
+import {Task} from "./task.model";
 
 interface TaskControllerInterface {
     listAll: (_req: Request, res: Response) => Promise<void>

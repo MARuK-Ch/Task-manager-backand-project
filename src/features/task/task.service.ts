@@ -1,4 +1,4 @@
-import { Task, TaskModel } from "../models/task.model.js";
+import { Task, TaskModel } from "./task.model";
 
 interface TaskServiceInterface {
     listAll: () => Promise<Task[]>

@@ -1,18 +1,18 @@
-import { Schema, model } from "mongoose";
+import { Schema, model } from 'mongoose'
 
-//модель данных TS
+// модель данных ts
 export interface Task {
-    _id: string // поле создается по умолчанию MongoDB
-    title: string
-    isDone: boolean
-    createAt: Date // поле создается по умолчанию MongoDB
-    updateAt: Date // поле создается по умолчанию MongoDB
+  _id: string // по умолчанию
+  title: string
+  isDone: boolean
+  createAt: Date // по умолчанию
+  updateAt: Date // по умолчанию
 }
 
-//Модель данных в базе
-const TaskShema = new Schema<Task>({
-    title: { type: String, required: true, trim: true, minLength: 5, maxLength: 200 },
-    isDone: { type: Boolean, default: false },
+const TaskSchema = new Schema<Task>({
+  title: { type: String, required: true, trim: true, minLength: 5, maxLength: 200 },
+  isDone: { type: Boolean, default: false },
 }, { timestamps: true })
 
-export const TaskModel = model<Task>('Task', TaskShema)
+// модель данных в базе
+export const TaskModel = model<Task>('Task', TaskSchema)

@@ -1,5 +1,5 @@
-import { createExpressApp } from '../app'
-import { connectDB } from '../core/db/db'
+import { createExpressApp } from '../app.js'
+import { connectDB } from '../core/db/db.js'
 
 let dbReady: Promise<void> | null = null
 function ensureDB() {

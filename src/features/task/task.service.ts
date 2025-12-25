@@ -1,4 +1,4 @@
-import { Task, TaskModel } from "./task.model";
+import {Task, TaskModel} from './task.model.js'
 
 interface TaskServiceInterface {
     listAll: () => Promise<Task[]>
@@ -10,19 +10,20 @@ interface TaskServiceInterface {
     delete: (id: string) => Promise<boolean>
 }
 
-//только работа с базой
+// эксклюзивно работа с базой
 export class TaskService implements TaskServiceInterface {
-    //получаем из базы записи в виде (js objects/arrays)
-    listAll(): Promise<Task[]> {
+    // получаем из базы записи (js objects/arrays)
+    listAll(): Promise<Task[]> { // готовка блюда
+        // SELECT FROM Task -> sql
         return TaskModel.find().sort({ updatedAt: -1 }).lean()
     }
-    //получаем список активных задач
+
     listPending(): Promise<Task[]> {
-        return TaskModel.find({ isDone: false }).sort({ updateAt: -1 }).lean()
+        return TaskModel.find({ isDone: false }).sort({ updatedAt: -1 }).lean()
     }
-    //получаем список выполненных задач
+
     listDone(): Promise<Task[]> {
-        return TaskModel.find( {isDone: true} ).sort({ updateAt: -1 }).lean()
+        return TaskModel.find({ isDone: true }).sort({ updatedAt: -1 }).lean()
     }
 
     async create(title: string): Promise<Task> {
@@ -31,22 +32,22 @@ export class TaskService implements TaskServiceInterface {
     }
 
     updateTitle(id: string, newTitle: string): Promise<Task | null> {
+        if (!id) {
+            return Promise.reject(new Error('Требуется id задачи'))
+        }
         if (!newTitle) {
             return Promise.reject(new Error('Требуется новое название задачи'))
-        }
-        if (!id) {
-            return Promise.reject(new Error('требуется указать ID задачи'))
         }
 
         return TaskModel.findByIdAndUpdate(id, { title: newTitle }, { new: true }).lean()
     }
 
     updateStatus(id: string, newStatus: boolean): Promise<Task | null> {
-        if (typeof newStatus !== 'boolean') {
-            return Promise.reject(new Error('Требуется указать новый статус задачи'))
-        }
         if (!id) {
-            return Promise.reject(new Error('Требуется указать ID задачи'))
+            return Promise.reject(new Error('Требуется id задачи'))
+        }
+        if (typeof newStatus !== 'boolean') {
+            return Promise.reject(new Error('Требуется новый статус задачи'))
         }
 
         return TaskModel.findByIdAndUpdate(id, { isDone: newStatus }, { new: true }).lean()
@@ -54,8 +55,6 @@ export class TaskService implements TaskServiceInterface {
 
     async delete(id: string): Promise<boolean> {
         const res = await TaskModel.findByIdAndDelete(id).lean()
-        return Boolean(res) // true если успешно удалено или false если произошла ошибка удаления
+        return Boolean(res) // true - если успешно удалена or false - если произошла ошибка
     }
-
-
 }

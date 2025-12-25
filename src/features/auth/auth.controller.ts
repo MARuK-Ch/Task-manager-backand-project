@@ -1,6 +1,6 @@
-import {validateLogin, validateRegister} from "./auth.validator";
-import { Request, Response } from 'express';
-import {AuthService} from "./auth.service";
+import type {Request, Response} from "express";
+import {validateLogin, validateRegister} from "./auth.validator.js";
+import {AuthService} from "./auth.service.js";
 
 interface AuthControllerInterface {
     login: (req: Request, res: Response) => Promise<void>
@@ -9,14 +9,19 @@ interface AuthControllerInterface {
 
 export class AuthController implements AuthControllerInterface {
     constructor(private authService: AuthService) {}
+
     login = async (req: Request, res: Response) => {
         try {
             const body = validateLogin(req.body)
             const data = await this.authService.login(body)
-            res.status(200).json({data})
+            res.status(200).json({
+                id: data._id,
+                email: data.email,
+                name: data?.name,
+            })
         }
         catch (error: Error | string | unknown) {
-            if (typeof error === 'string') {
+            if (typeof error === 'string') { // validation error
                 res.status(400).json({ message: error })
             }
             if (error instanceof Error) {
@@ -25,17 +30,21 @@ export class AuthController implements AuthControllerInterface {
             else {
                 res.status(400).json({ message: 'Invalid credentials' })
             }
-
         }
     }
-    register = async (req: Request, res: Response)=> {
+
+    register = async (req: Request, res: Response) => {
         try {
             const body = validateRegister(req.body)
             const data = await this.authService.register(body)
-            res.status(200).json({data})
+            res.status(200).json({
+                id: data._id,
+                email: data.email,
+                name: data?.name,
+            })
         }
         catch (error: Error | string | unknown) {
-            if (typeof error === 'string') {
+            if (typeof error === 'string') { // validation error
                 res.status(400).json({ message: error })
             }
             if (error instanceof Error) {
@@ -44,7 +53,6 @@ export class AuthController implements AuthControllerInterface {
             else {
                 res.status(400).json({ message: 'Invalid credentials' })
             }
-
         }
     }
 }

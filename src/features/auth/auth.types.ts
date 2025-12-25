@@ -1,10 +1,10 @@
 export interface AuthRegisterBody {
-    email: string;
-    password: string;
-    name?: string;
+    email: string
+    password: string
+    name?: string
 }
 
 export interface AuthLoginBody {
-    email: string;
-    password: string;
+    email: string
+    password: string
 }

@@ -1,19 +1,19 @@
 {
   "compilerOptions": {
-    "target": "ES2022",
-    "module": "ESNext",
+    "target": "es2019",
+    "module": "commonjs",
     "moduleResolution": "node",
-    "outDir": "dist",
-    "rootDir": "src",
-    "strict": true,
+    "outDir": "./",
+    "rootDir": "./",
+    "strict": false,
     "esModuleInterop": true,
+    "resolveJsonModule": true,
     "skipLibCheck": true,
-    "allowJs": true,
-    "rewriteRelativeImportExtensions": true,
+    "allowJs": false,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"]
+    }
   },
-  "include": ["src"],
-  "baseUrl": ".",
-  "paths": {
-    "@/*": ["src/*"]
-  }
+  "include": ["src", "api"]
 }

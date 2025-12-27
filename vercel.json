@@ -1,9 +1,10 @@
 {
   "version": 2,
   "functions": {
-    "api/index.ts": {
+    "api/index.js": {
       "runtime": "nodejs18.x"
     }
   }
 }
+
 

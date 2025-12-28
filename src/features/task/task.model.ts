@@ -10,7 +10,7 @@ export interface Task {
 }
 
 const TaskSchema = new Schema<Task>({
-  title: { type: String, required: true, trim: true, minLength: 5, maxLength: 200 },
+  title: { type: String, required: true, trim: true, minLength: 3, maxLength: 200 },
   isDone: { type: Boolean, default: false },
 }, { timestamps: true })
 

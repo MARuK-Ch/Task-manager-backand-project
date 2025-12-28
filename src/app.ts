@@ -7,7 +7,7 @@ export function createExpressApp() {
   const app = express()
 
   const corsOptions = {
-      origin: process.env.CORS_ORIGIN,
+      origin: process.env.CORS_ORIGIN ?? 'http://localhost:3000',
       optionsSuccessStatus: 200
   }
 
